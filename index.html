@@ -16,7 +16,7 @@
             min-height: 100vh;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             color: var(--text-color);
-            transition: background 0.4s ease, color 0.4s ease;
+            transition: background 0.4s ease;
         }
 
         body {
@@ -24,24 +24,24 @@
             box-sizing: border-box;
         }
 
-        /* --- LIQUID GLASS REUSABLE STYLE --- */
+        /* --- PURE LIQUID GLASS REUSABLE CLASS --- */
         .liquid-glass {
             border-radius: 28px;
             overflow: hidden;
             -webkit-mask-image: -webkit-radial-gradient(white, black);
             background: linear-gradient(
                 135deg,
-                rgba(255, 255, 255, 0.28) 0%,
-                rgba(255, 255, 255, 0.08) 45%,
-                rgba(255, 255, 255, 0.15) 100%
+                rgba(255, 255, 255, 0.22) 0%,
+                rgba(255, 255, 255, 0.05) 45%,
+                rgba(255, 255, 255, 0.12) 100%
             );
             backdrop-filter: blur(25px) saturate(210%);
             -webkit-backdrop-filter: blur(25px) saturate(210%);
             border: none;
             box-shadow: 
-                inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.5),
-                inset 0 -1px 2px 0 rgba(255, 255, 255, 0.2),
-                0 8px 24px rgba(0, 0, 0, 0.12);
+                inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.4),
+                inset 0 -1px 2px 0 rgba(255, 255, 255, 0.15),
+                0 10px 30px rgba(0, 0, 0, 0.35);
         }
 
         /* --- HEADER --- */
@@ -90,7 +90,7 @@
             height: 110px;
             border-radius: 18px;
             margin-bottom: 14px;
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
         }
 
         .card h3 {
@@ -104,7 +104,7 @@
             opacity: 0.8;
         }
 
-        /* --- LIQUID GLASS BUTTONS --- */
+        /* --- BUTTONS --- */
         button.liquid-glass-btn {
             width: 100%;
             height: 48px;
@@ -114,11 +114,10 @@
             cursor: pointer;
             font-size: 1rem;
             font-weight: 600;
-            color: inherit;
+            color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
-            
             transition: transform 0.15s ease, background 0.15s ease, opacity 0.2s ease;
             -webkit-tap-highlight-color: transparent;
         }
@@ -127,30 +126,30 @@
             transform: scale(0.96);
             background: linear-gradient(
                 135deg,
-                rgba(255, 255, 255, 0.45) 0%,
-                rgba(255, 255, 255, 0.22) 100%
+                rgba(255, 255, 255, 0.38) 0%,
+                rgba(255, 255, 255, 0.18) 100%
             );
         }
 
         button.liquid-glass-btn.equipped {
             background: linear-gradient(
                 135deg,
-                rgba(255, 255, 255, 0.5) 0%,
-                rgba(255, 255, 255, 0.25) 100%
+                rgba(255, 255, 255, 0.45) 0%,
+                rgba(255, 255, 255, 0.20) 100%
             );
         }
 
         button.liquid-glass-btn:disabled {
-            opacity: 0.45;
+            opacity: 0.4;
             cursor: not-allowed;
             transform: none !important;
         }
 
-        /* --- OVERLAY --- */
+        /* --- LOADING OVERLAY --- */
         .loading-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -184,26 +183,32 @@
     <script>
         const API_URL = "https://script.google.com/macros/s/AKfycbxGXgGP01t8ogK6yweY9FRuWa2SusKGx52RwJs0gtrO92pI9Bz-ZXlVpqVVO51i6uCxvQ/exec";
 
+        // Expanded Catalog with Dark Themes
         const shopItems = [
-            // Free Backgrounds
-            { id: 1, name: "Classic Black", cost: 0, type: "Solid", color: "#121212", textColor: "#ffffff" },
-            { id: 2, name: "Classic White", cost: 0, type: "Solid", color: "#ffffff", textColor: "#111111" },
+            // Free Backgrounds (IDs 1 & 2)
+            { id: 1, name: "Obsidian Void", cost: 0, type: "Solid", color: "#0d0d11" },
+            { id: 2, name: "Deep Midnight", cost: 0, type: "Solid", color: "#0f172a" },
 
-            // Basic Backgrounds (1,500 points)
-            { id: 3, name: "Ocean Blue", cost: 1500, type: "Solid", color: "#3498db", textColor: "#ffffff" },
-            { id: 4, name: "Forest Green", cost: 1500, type: "Solid", color: "#2ecc71", textColor: "#ffffff" },
-            { id: 5, name: "Sunset Pink", cost: 1500, type: "Solid", color: "#e91e63", textColor: "#ffffff" },
-            { id: 6, name: "Royal Purple", cost: 1500, type: "Solid", color: "#9b59b6", textColor: "#ffffff" },
+            // Basic Dark Solids (1,500 Points)
+            { id: 3, name: "Emerald Night", cost: 1500, type: "Solid", color: "#064e3b" },
+            { id: 4, name: "Dark Crimson", cost: 1500, type: "Solid", color: "#4c0519" },
+            { id: 5, name: "Deep Violet", cost: 1500, type: "Solid", color: "#3b0764" },
+            { id: 6, name: "Navy Abyss", cost: 1500, type: "Solid", color: "#172554" },
+            { id: 7, name: "Charcoal Smoke", cost: 1500, type: "Solid", color: "#18181b" },
+            { id: 8, name: "Royal Plum", cost: 1500, type: "Solid", color: "#4a044e" },
 
-            // Gradient Backgrounds (3,500 points)
-            { id: 7, name: "Sunset Glow", cost: 3500, type: "Gradient", color: "#ff7e5f", middle: "#feb47b", end: "#ff7e5f", textColor: "#ffffff" },
-            { id: 8, name: "Neon Cyber", cost: 3500, type: "Gradient", color: "#00c6ff", middle: "#0072ff", end: "#00c6ff", textColor: "#ffffff" },
-            { id: 9, name: "Aurora Borealis", cost: 3500, type: "Gradient", color: "#7f00ff", middle: "#e100ff", end: "#7f00ff", textColor: "#ffffff" }
+            // Dark Gradients (3,500 Points)
+            { id: 9, name: "Cosmic Void", cost: 3500, type: "Gradient", color: "#0f0c29", middle: "#302b63", end: "#24243e" },
+            { id: 10, name: "Cyberpunk Dark", cost: 3500, type: "Gradient", color: "#0d1b2a", middle: "#1b263b", end: "#415a77" },
+            { id: 11, name: "Moody Sunset", cost: 3500, type: "Gradient", color: "#2b1055", middle: "#4a154b", end: "#12002b" },
+            { id: 12, name: "Emerald Nebula", cost: 3500, type: "Gradient", color: "#022c22", middle: "#065f46", end: "#021c16" },
+            { id: 13, name: "Solar Eclipse", cost: 3500, type: "Gradient", color: "#180000", middle: "#4a0e0e", end: "#0a0a0a" },
+            { id: 14, name: "Deep Aurora", cost: 3500, type: "Gradient", color: "#03001e", middle: "#4b0082", end: "#03001e" }
         ];
 
         let points = 0;
         let boughtBgIds = [1, 2];
-        let equippedConfig = { type: "Solid", color: "#ffffff", middleColor: "", endColor: "" };
+        let equippedConfig = { type: "Solid", color: "#0d0d11", middleColor: "", endColor: "" };
 
         function getCssBackground(item) {
             if (item.type === "Gradient") {
@@ -295,9 +300,6 @@
             } else {
                 document.body.style.background = config.color;
             }
-
-            const isDark = (config.color === "#121212" || config.type === "Gradient");
-            document.documentElement.style.setProperty('--text-color', isDark ? "#ffffff" : "#111111");
         }
 
         async function handleItemAction(itemId) {
