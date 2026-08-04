@@ -227,7 +227,7 @@
                     updateDisplay();
                 }
             } catch (err) {
-                console.error("Failed to sync sheet initial load:", err);
+                console.error("Failed to fetch initial sheet data:", err);
             }
         }
 
@@ -286,80 +286,65 @@
         }
 
         function applyEquippedStyle(config) {
-            if (config.type === "Gradient") {
-                document.body.style.background = `linear-gradient(135deg, ${config.color}, ${config.middleColor}, ${config.endColor})`;
-            } else {
-                document.body.style.background = config.color;
-            }
+            const bgStyle = (config.type === "Gradient")
+                ? `linear-gradient(135deg, ${config.color}, ${config.middleColor}, ${config.endColor})`
+                : config.color;
+
+            document.body.style.background = bgStyle;
+            localStorage.setItem('equipped_bg', bgStyle);
         }
 
         function handleItemAction(itemId) {
             const item = shopItems.find(i => i.id === itemId);
             const isOwned = boughtBgIds.includes(item.id);
 
+            // 1. Instantly update screen & local configuration (0ms delay)
             if (!isOwned) {
                 if (points < item.cost) return;
-
-                // --- OPTIMISTIC BUY UPDATE (0ms Instant UI Feedback) ---
                 points -= item.cost;
                 boughtBgIds.push(item.id);
-                equippedConfig = {
-                    type: item.type,
-                    color: item.color,
-                    middleColor: item.middle || '',
-                    endColor: item.end || ''
-                };
-                
-                applyEquippedStyle(equippedConfig);
-                updateDisplay();
+            }
 
-                // Sync in background silently
+            equippedConfig = {
+                type: item.type,
+                color: item.color,
+                middleColor: item.middle || '',
+                endColor: item.end || ''
+            };
+
+            applyEquippedStyle(equippedConfig);
+            updateDisplay();
+
+            // 2. Fire-and-forget sync to Google Sheets in the background
+            if (!isOwned) {
+                // Send purchase request, then follow up with equip sync
                 fetch(API_URL, {
                     method: 'POST',
                     redirect: 'follow',
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify({ action: 'buy', bgId: item.id, cost: item.cost })
                 }).then(() => {
-                    return fetch(API_URL, {
-                        method: 'POST',
-                        redirect: 'follow',
-                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                        body: JSON.stringify({
-                            action: 'equip',
-                            type: item.type,
-                            color: item.color,
-                            middle: item.middle || '',
-                            end: item.end || ''
-                        })
-                    });
-                }).catch(err => console.error("Background sync failed:", err));
-
+                    return sendEquipRequest(item);
+                }).catch(err => console.error("Buy background sync error:", err));
             } else {
-                // --- OPTIMISTIC EQUIP UPDATE (0ms Instant UI Feedback) ---
-                equippedConfig = {
+                // Send equip request directly
+                sendEquipRequest(item).catch(err => console.error("Equip background sync error:", err));
+            }
+        }
+
+        function sendEquipRequest(item) {
+            return fetch(API_URL, {
+                method: 'POST',
+                redirect: 'follow',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify({
+                    action: 'equip',
                     type: item.type,
                     color: item.color,
-                    middleColor: item.middle || '',
-                    endColor: item.end || ''
-                };
-                
-                applyEquippedStyle(equippedConfig);
-                updateDisplay();
-
-                // Sync in background silently
-                fetch(API_URL, {
-                    method: 'POST',
-                    redirect: 'follow',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify({
-                        action: 'equip',
-                        type: item.type,
-                        color: item.color,
-                        middle: item.middle || '',
-                        end: item.end || ''
-                    })
-                }).catch(err => console.error("Background sync failed:", err));
-            }
+                    middle: item.middle || '',
+                    end: item.end || ''
+                })
+            });
         }
 
         loadSheetData();
