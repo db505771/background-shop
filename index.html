@@ -183,27 +183,35 @@
     <script>
         const API_URL = "https://script.google.com/macros/s/AKfycbxGXgGP01t8ogK6yweY9FRuWa2SusKGx52RwJs0gtrO92pI9Bz-ZXlVpqVVO51i6uCxvQ/exec";
 
-        // Expanded Catalog with Dark Themes
+        // Expanded Catalog with 20+ Options
         const shopItems = [
             // Free Backgrounds (IDs 1 & 2)
             { id: 1, name: "Obsidian Void", cost: 0, type: "Solid", color: "#0d0d11" },
-            { id: 2, name: "Deep Midnight", cost: 0, type: "Solid", color: "#0f172a" },
+            { id: 2, name: "Pure Snow", cost: 0, type: "Solid", color: "#f8fafc" },
 
-            // Basic Dark Solids (1,500 Points)
+            // Basic Solid Colors (1,500 Points)
             { id: 3, name: "Emerald Night", cost: 1500, type: "Solid", color: "#064e3b" },
             { id: 4, name: "Dark Crimson", cost: 1500, type: "Solid", color: "#4c0519" },
             { id: 5, name: "Deep Violet", cost: 1500, type: "Solid", color: "#3b0764" },
             { id: 6, name: "Navy Abyss", cost: 1500, type: "Solid", color: "#172554" },
             { id: 7, name: "Charcoal Smoke", cost: 1500, type: "Solid", color: "#18181b" },
             { id: 8, name: "Royal Plum", cost: 1500, type: "Solid", color: "#4a044e" },
+            { id: 9, name: "Electric Indigo", cost: 1500, type: "Solid", color: "#312e81" },
+            { id: 10, name: "Deep Teal", cost: 1500, type: "Solid", color: "#134e4a" },
+            { id: 11, name: "Spiced Amber", cost: 1500, type: "Solid", color: "#78350f" },
+            { id: 12, name: "Midnight Steel", cost: 1500, type: "Solid", color: "#1e293b" },
 
-            // Dark Gradients (3,500 Points)
-            { id: 9, name: "Cosmic Void", cost: 3500, type: "Gradient", color: "#0f0c29", middle: "#302b63", end: "#24243e" },
-            { id: 10, name: "Cyberpunk Dark", cost: 3500, type: "Gradient", color: "#0d1b2a", middle: "#1b263b", end: "#415a77" },
-            { id: 11, name: "Moody Sunset", cost: 3500, type: "Gradient", color: "#2b1055", middle: "#4a154b", end: "#12002b" },
-            { id: 12, name: "Emerald Nebula", cost: 3500, type: "Gradient", color: "#022c22", middle: "#065f46", end: "#021c16" },
-            { id: 13, name: "Solar Eclipse", cost: 3500, type: "Gradient", color: "#180000", middle: "#4a0e0e", end: "#0a0a0a" },
-            { id: 14, name: "Deep Aurora", cost: 3500, type: "Gradient", color: "#03001e", middle: "#4b0082", end: "#03001e" }
+            // Gradients (3,500 Points)
+            { id: 13, name: "Cosmic Void", cost: 3500, type: "Gradient", color: "#0f0c29", middle: "#302b63", end: "#24243e" },
+            { id: 14, name: "Cyberpunk Dark", cost: 3500, type: "Gradient", color: "#0d1b2a", middle: "#1b263b", end: "#415a77" },
+            { id: 15, name: "Moody Sunset", cost: 3500, type: "Gradient", color: "#2b1055", middle: "#4a154b", end: "#12002b" },
+            { id: 16, name: "Emerald Nebula", cost: 3500, type: "Gradient", color: "#022c22", middle: "#065f46", end: "#021c16" },
+            { id: 17, name: "Solar Eclipse", cost: 3500, type: "Gradient", color: "#180000", middle: "#4a0e0e", end: "#0a0a0a" },
+            { id: 18, name: "Deep Aurora", cost: 3500, type: "Gradient", color: "#03001e", middle: "#4b0082", end: "#03001e" },
+            { id: 19, name: "Neon Matrix", cost: 3500, type: "Gradient", color: "#000000", middle: "#003b00", end: "#001a00" },
+            { id: 20, name: "Midnight Rose", cost: 3500, type: "Gradient", color: "#1a000d", middle: "#580028", end: "#1a000d" },
+            { id: 21, name: "Oceanic Abyss", cost: 3500, type: "Gradient", color: "#001021", middle: "#002845", end: "#001021" },
+            { id: 22, name: "Amethyst Glow", cost: 3500, type: "Gradient", color: "#120024", middle: "#38005b", end: "#120024" }
         ];
 
         let points = 0;
