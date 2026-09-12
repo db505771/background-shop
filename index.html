@@ -2,144 +2,279 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <title>Backgrounds</title>
 
 <style>
+    :root {
+        --text-color: #ffffff;
+    }
+
     * {
         box-sizing: border-box;
-        -webkit-tap-highlight-color: transparent;
     }
 
     html,
     body {
-        margin: 0;
-        padding: 0;
+        margin: 0 !important;
+        padding: 0 !important;
         width: 100%;
-        min-height: 100%;
-        background: transparent;
-        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
-                     "SF Pro Text", system-ui, sans-serif;
-        color: white;
+        min-height: 100vh;
+
+        font-family:
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            Roboto,
+            Helvetica,
+            Arial,
+            sans-serif;
+
+        color: var(--text-color);
+
+        transition: background 0.3s ease;
+
+        -webkit-tap-highlight-color: transparent;
     }
 
     body {
-        overflow-x: hidden;
+        padding: 20px !important;
     }
 
-    .container {
-        width: 100%;
-        padding: 12px;
-    }
+    /* =====================================
+       CATEGORY BUTTONS
+    ===================================== */
 
-    /* CATEGORY BUTTONS */
-
-    .categories {
+    .category-container {
         display: grid;
+
         grid-template-columns: 1fr 1fr;
+
         gap: 10px;
+
         width: 100%;
-        margin-bottom: 14px;
+        max-width: 600px;
+
+        margin: 0 auto 18px;
     }
 
-    .category {
-        height: 44px;
-        border: 0;
-        border-radius: 14px;
-        background: rgba(255, 255, 255, 0.08);
-        color: rgba(255, 255, 255, 0.65);
-        font-family: inherit;
-        font-size: 15px;
+    .category-button {
+        height: 52px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 28px;
+
+        color: white;
+
+        font-size: 1rem;
         font-weight: 600;
+
         cursor: pointer;
-        transition: 0.18s ease;
+
+        background:
+            linear-gradient(
+                180deg,
+                rgba(255,255,255,0.14),
+                rgba(255,255,255,0.07)
+            );
+
+        border: 1px solid rgba(255,255,255,0.08);
+
+        backdrop-filter: blur(22px) saturate(180%);
+        -webkit-backdrop-filter: blur(22px) saturate(180%);
+
+        box-shadow:
+            inset 0 1px 1px rgba(255,255,255,0.10);
+
+        transition:
+            transform 0.15s ease,
+            background 0.15s ease,
+            border 0.15s ease;
     }
 
-    .category:active {
+    .category-button:active {
         transform: scale(0.97);
     }
 
-    .category.selected {
-        background: rgba(255, 255, 255, 0.16);
-        color: white;
+    .category-button.selected {
+        border: 1px solid rgba(255,255,255,0.95);
+
+        background:
+            linear-gradient(
+                180deg,
+                rgba(255,255,255,0.18),
+                rgba(255,255,255,0.09)
+            );
     }
 
-    /* SHOP GRID */
+    /* =====================================
+       BACKGROUND GRID
+    ===================================== */
 
     .shop-grid {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        grid-template-columns:
+            repeat(
+                auto-fit,
+                minmax(180px, 1fr)
+            );
+
         gap: 10px;
+
         width: 100%;
+        max-width: 1000px;
+
+        margin: 0 auto;
     }
 
-    /* BACKGROUND CARD */
+    /* =====================================
+       BACKGROUND PILL
+    ===================================== */
 
-    .background-card {
-        position: relative;
+    .card {
         width: 100%;
-        height: 82px;
-        border-radius: 18px;
-        border: 2px solid transparent;
-        padding: 5px;
-        background: transparent;
+        height: 56px;
+
+        padding: 5px 14px 5px 6px;
+
+        display: flex;
+        align-items: center;
+
+        border-radius: 30px;
+
         cursor: pointer;
+
+        background:
+            linear-gradient(
+                180deg,
+                rgba(255,255,255,0.14),
+                rgba(255,255,255,0.07)
+            );
+
+        border: 1px solid rgba(255,255,255,0.08);
+
+        backdrop-filter: blur(22px) saturate(180%);
+        -webkit-backdrop-filter: blur(22px) saturate(180%);
+
+        box-shadow:
+            inset 0 1px 1px rgba(255,255,255,0.10),
+            0 2px 8px rgba(0,0,0,0.08);
+
         transition:
-            transform 0.16s ease,
-            border-color 0.16s ease;
+            transform 0.15s ease,
+            background 0.15s ease,
+            border 0.15s ease;
+
+        overflow: hidden;
     }
 
-    .background-card:active {
+    .card:active {
         transform: scale(0.96);
     }
 
-    .background-card.selected {
-        border-color: white;
+    /* =====================================
+       EQUIPPED
+    ===================================== */
+
+    .card.equipped {
+        border: 1px solid rgba(255,255,255,0.95);
+
+        background:
+            linear-gradient(
+                180deg,
+                rgba(255,255,255,0.18),
+                rgba(255,255,255,0.08)
+            );
+
+        box-shadow:
+            inset 0 1px 1px rgba(255,255,255,0.18);
     }
 
-    /* BACKGROUND PREVIEW */
+    /* =====================================
+       COLOR CIRCLE
+    ===================================== */
 
-    .background-preview {
-        width: 100%;
-        height: 100%;
-        border-radius: 12px;
-        position: relative;
+    .preview {
+        flex-shrink: 0;
+
+        width: 44px;
+        height: 44px;
+
+        border-radius: 50%;
+
+        margin-right: 10px;
+
+        border: 1px solid rgba(255,255,255,0.20);
+
+        box-shadow:
+            inset 0 1px 2px rgba(255,255,255,0.20),
+            inset 0 -1px 2px rgba(0,0,0,0.12);
+
         overflow: hidden;
     }
 
-    /* NAME */
+    /* =====================================
+       NAME
+    ===================================== */
 
-    .background-name {
-        position: absolute;
-        left: 10px;
-        bottom: 8px;
-        right: 10px;
+    .item-name {
+        min-width: 0;
 
-        font-size: 12px;
-        line-height: 15px;
-        font-weight: 600;
-
-        color: white;
-
-        text-shadow:
-            0 1px 4px rgba(0, 0, 0, 0.8),
-            0 0 8px rgba(0, 0, 0, 0.5);
-
-        white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        white-space: nowrap;
+
+        font-size: 0.95rem;
+        font-weight: 600;
     }
 
-    @media (min-width: 600px) {
-        .shop-grid {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+    /* =====================================
+       MOBILE
+    ===================================== */
+
+    @media (max-width: 500px) {
+
+        body {
+            padding: 16px !important;
         }
-    }
 
-    @media (min-width: 900px) {
+        .category-container {
+            gap: 8px;
+        }
+
+        .category-button {
+            height: 50px;
+
+            font-size: 0.95rem;
+        }
+
         .shop-grid {
-            grid-template-columns: repeat(4, minmax(0, 1fr));
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 8px;
+        }
+
+        .card {
+            height: 52px;
+
+            padding-right: 10px;
+        }
+
+        .preview {
+            width: 40px;
+            height: 40px;
+
+            margin-right: 8px;
+        }
+
+        .item-name {
+            font-size: 0.85rem;
         }
     }
 </style>
@@ -147,81 +282,61 @@
 
 <body>
 
-<div class="container">
+<!-- CATEGORY BUTTONS -->
 
-    <div class="categories">
-        <button
-            class="category selected"
-            id="defaultButton"
-            onclick="switchCategory('Default')">
-            Default
-        </button>
+<div class="category-container">
 
-        <button
-            class="category"
-            id="gradientButton"
-            onclick="switchCategory('Gradient')">
-            Gradient
-        </button>
+    <div
+        class="category-button selected"
+        id="default-button"
+        onclick="switchCategory('Default')"
+    >
+        Default
     </div>
 
-    <div class="shop-grid" id="shopGrid"></div>
+    <div
+        class="category-button"
+        id="gradient-button"
+        onclick="switchCategory('Gradient')"
+    >
+        Gradient
+    </div>
 
 </div>
 
+
+<!-- BACKGROUNDS -->
+
+<div
+    class="shop-grid"
+    id="shop-container"
+></div>
+
+
 <script>
 
-/* =========================================================
-   GOOGLE APPS SCRIPT
-   ========================================================= */
-
 const API_URL =
-"https://script.google.com/macros/s/AKfycbxGXgGP01t8ogK6ywe9FRuWa2SusKGx52RwJs0gtrO92pI9Bz-ZXlVpqVVO51i6uCxvQ/exec";
+"https://script.google.com/macros/s/AKfycbxGXgGP01t8ogK6yweY9FRuWa2SusKGx52RwJs0gtrO92pI9Bz-ZXlVpqVVO51i6uCxvQ/exec";
 
 
-/* =========================================================
-   BACKGROUND DATA
-   ========================================================= */
-
-/*
-    IDs are intentionally NOT renumbered.
-
-    This prevents existing Google Sheet equipped
-    values from breaking.
-*/
+/* =====================================
+   BACKGROUNDS
+   NO DUPLICATES
+   NO PURE SNOW
+   SORTED BY COLOR
+===================================== */
 
 const shopItems = [
 
-    /* =========================
-       DEFAULT / SOLID
-       ========================= */
+    /* ================================
+       DEFAULT
+    ================================= */
 
     {
         id: 1,
         name: "Obsidian Void",
         type: "Solid",
         color: "#0d0d11"
-    },
-
-    {
-        id: 7,
-        name: "Charcoal Smoke",
-        type: "Solid",
-        color: "#18181b"
-    },
-
-    {
-        id: 4,
-        name: "Dark Crimson",
-        type: "Solid",
-        color: "#4c0519"
-    },
-
-    {
-        id: 17,
-        name: "Blood Orange",
-        type: "Solid",
-        color: "#881337"
     },
 
     {
@@ -239,59 +354,24 @@ const shopItems = [
     },
 
     {
-        id: 14,
-        name: "Olive Shadow",
+        id: 17,
+        name: "Blood Orange",
         type: "Solid",
-        color: "#1a2e05"
+        color: "#881337"
     },
 
     {
-        id: 3,
-        name: "Emerald Night",
+        id: 4,
+        name: "Dark Crimson",
         type: "Solid",
-        color: "#064e3b"
+        color: "#4c0519"
     },
 
     {
-        id: 10,
-        name: "Deep Teal",
+        id: 15,
+        name: "Deep Carmine",
         type: "Solid",
-        color: "#134e4a"
-    },
-
-    {
-        id: 16,
-        name: "Nordic Blue",
-        type: "Solid",
-        color: "#0f2b46"
-    },
-
-    {
-        id: 6,
-        name: "Navy Abyss",
-        type: "Solid",
-        color: "#172554"
-    },
-
-    {
-        id: 12,
-        name: "Midnight Steel",
-        type: "Solid",
-        color: "#1e293b"
-    },
-
-    {
-        id: 9,
-        name: "Electric Indigo",
-        type: "Solid",
-        color: "#312e81"
-    },
-
-    {
-        id: 5,
-        name: "Deep Violet",
-        type: "Solid",
-        color: "#3b0764"
+        color: "#581c87"
     },
 
     {
@@ -302,16 +382,72 @@ const shopItems = [
     },
 
     {
-        id: 15,
-        name: "Deep Carmine",
+        id: 5,
+        name: "Deep Violet",
         type: "Solid",
-        color: "#581c87"
+        color: "#3b0764"
+    },
+
+    {
+        id: 9,
+        name: "Electric Indigo",
+        type: "Solid",
+        color: "#312e81"
+    },
+
+    {
+        id: 6,
+        name: "Navy Abyss",
+        type: "Solid",
+        color: "#172554"
+    },
+
+    {
+        id: 16,
+        name: "Nordic Blue",
+        type: "Solid",
+        color: "#0f2b46"
+    },
+
+    {
+        id: 12,
+        name: "Midnight Steel",
+        type: "Solid",
+        color: "#1e293b"
+    },
+
+    {
+        id: 10,
+        name: "Deep Teal",
+        type: "Solid",
+        color: "#134e4a"
+    },
+
+    {
+        id: 18,
+        name: "Eucalyptus",
+        type: "Solid",
+        color: "#064e3b"
+    },
+
+    {
+        id: 14,
+        name: "Olive Shadow",
+        type: "Solid",
+        color: "#1a2e05"
+    },
+
+    {
+        id: 7,
+        name: "Charcoal Smoke",
+        type: "Solid",
+        color: "#18181b"
     },
 
 
-    /* =========================
-       GRADIENT
-       ========================= */
+    /* ================================
+       GRADIENTS
+    ================================= */
 
     {
         id: 34,
@@ -320,15 +456,6 @@ const shopItems = [
         color: "#000000",
         middle: "#111122",
         end: "#000000"
-    },
-
-    {
-        id: 25,
-        name: "Neon Matrix",
-        type: "Gradient",
-        color: "#000000",
-        middle: "#003b00",
-        end: "#001a00"
     },
 
     {
@@ -350,102 +477,21 @@ const shopItems = [
     },
 
     {
+        id: 21,
+        name: "Moody Sunset",
+        type: "Gradient",
+        color: "#2b1055",
+        middle: "#4a154b",
+        end: "#12002b"
+    },
+
+    {
         id: 26,
         name: "Midnight Rose",
         type: "Gradient",
         color: "#1a000d",
         middle: "#580028",
         end: "#1a000d"
-    },
-
-    {
-        id: 30,
-        name: "Golden Twilight",
-        type: "Gradient",
-        color: "#2d1200",
-        middle: "#612700",
-        end: "#1a0a00"
-    },
-
-    {
-        id: 33,
-        name: "Toxic Venom",
-        type: "Gradient",
-        color: "#0a1a00",
-        middle: "#2d5a00",
-        end: "#050d00"
-    },
-
-    {
-        id: 22,
-        name: "Emerald Nebula",
-        type: "Gradient",
-        color: "#022c22",
-        middle: "#065f46",
-        end: "#021c16"
-    },
-
-    {
-        id: 35,
-        name: "Siren's Call",
-        type: "Gradient",
-        color: "#001a1a",
-        middle: "#005555",
-        end: "#000d0d"
-    },
-
-    {
-        id: 27,
-        name: "Oceanic Abyss",
-        type: "Gradient",
-        color: "#001021",
-        middle: "#002845",
-        end: "#001021"
-    },
-
-    {
-        id: 31,
-        name: "Frostbite",
-        type: "Gradient",
-        color: "#031b33",
-        middle: "#004b87",
-        end: "#010e1a"
-    },
-
-    {
-        id: 20,
-        name: "Cyberpunk Dark",
-        type: "Gradient",
-        color: "#0d1b2a",
-        middle: "#1b263b",
-        end: "#415a77"
-    },
-
-    {
-        id: 19,
-        name: "Cosmic Void",
-        type: "Gradient",
-        color: "#0f0c29",
-        middle: "#302b63",
-        end: "#24243e"
-    },
-
-    {
-        id: 24,
-        name: "Deep Aurora",
-        type: "Gradient",
-        color: "#03001e",
-        middle: "#4b0082",
-        end: "#03001e"
-    },
-
-    {
-        id: 28,
-        name: "Amethyst Glow",
-        type: "Gradient",
-        color: "#120024",
-        middle: "#38005b",
-        end: "#120024"
     },
 
     {
@@ -458,12 +504,102 @@ const shopItems = [
     },
 
     {
-        id: 21,
-        name: "Moody Sunset",
+        id: 28,
+        name: "Amethyst Glow",
         type: "Gradient",
-        color: "#2b1055",
-        middle: "#4a154b",
-        end: "#12002b"
+        color: "#120024",
+        middle: "#38005b",
+        end: "#120024"
+    },
+
+    {
+        id: 24,
+        name: "Deep Aurora",
+        type: "Gradient",
+        color: "#03001e",
+        middle: "#4b0082",
+        end: "#03001e"
+    },
+
+    {
+        id: 19,
+        name: "Cosmic Void",
+        type: "Gradient",
+        color: "#0f0c29",
+        middle: "#302b63",
+        end: "#24243e"
+    },
+
+    {
+        id: 20,
+        name: "Cyberpunk Dark",
+        type: "Gradient",
+        color: "#0d1b2a",
+        middle: "#1b263b",
+        end: "#415a77"
+    },
+
+    {
+        id: 31,
+        name: "Frostbite",
+        type: "Gradient",
+        color: "#031b33",
+        middle: "#004b87",
+        end: "#010e1a"
+    },
+
+    {
+        id: 27,
+        name: "Oceanic Abyss",
+        type: "Gradient",
+        color: "#001021",
+        middle: "#002845",
+        end: "#001021"
+    },
+
+    {
+        id: 35,
+        name: "Siren's Call",
+        type: "Gradient",
+        color: "#001a1a",
+        middle: "#005555",
+        end: "#000d0d"
+    },
+
+    {
+        id: 22,
+        name: "Emerald Nebula",
+        type: "Gradient",
+        color: "#022c22",
+        middle: "#065f46",
+        end: "#021c16"
+    },
+
+    {
+        id: 33,
+        name: "Toxic Venom",
+        type: "Gradient",
+        color: "#0a1a00",
+        middle: "#2d5a00",
+        end: "#050d00"
+    },
+
+    {
+        id: 25,
+        name: "Neon Matrix",
+        type: "Gradient",
+        color: "#000000",
+        middle: "#003b00",
+        end: "#001a00"
+    },
+
+    {
+        id: 30,
+        name: "Golden Twilight",
+        type: "Gradient",
+        color: "#2d1200",
+        middle: "#612700",
+        end: "#1a0a00"
     },
 
     {
@@ -478,257 +614,313 @@ const shopItems = [
 ];
 
 
-/* =========================================================
+/* =====================================
    STATE
-   ========================================================= */
-
-let currentCategory = "Default";
+===================================== */
 
 let equippedConfig = {
     type: "Solid",
     color: "#0d0d11",
-    middle: "",
-    end: ""
+    middleColor: "",
+    endColor: ""
 };
 
+let currentCategory = "Default";
 
-/* =========================================================
-   CATEGORY SWITCHING
-   ========================================================= */
+
+/* =====================================
+   BACKGROUND CSS
+===================================== */
+
+function getCssBackground(item) {
+
+    if (item.type === "Gradient") {
+
+        return `
+            linear-gradient(
+                135deg,
+                ${item.color},
+                ${item.middle},
+                ${item.end}
+            )
+        `;
+    }
+
+    return item.color;
+}
+
+
+/* =====================================
+   CATEGORY
+===================================== */
 
 function switchCategory(category) {
 
     currentCategory = category;
 
-    const defaultButton =
-        document.getElementById("defaultButton");
+    document
+        .getElementById("default-button")
+        .classList.toggle(
+            "selected",
+            category === "Default"
+        );
 
-    const gradientButton =
-        document.getElementById("gradientButton");
+    document
+        .getElementById("gradient-button")
+        .classList.toggle(
+            "selected",
+            category === "Gradient"
+        );
 
-    defaultButton.classList.remove("selected");
-    gradientButton.classList.remove("selected");
-
-    if (category === "Default") {
-        defaultButton.classList.add("selected");
-    } else {
-        gradientButton.classList.add("selected");
-    }
-
-    renderShop();
+    updateDisplay();
 }
 
 
-/* =========================================================
-   RENDER SHOP
-   ========================================================= */
-
-function renderShop() {
-
-    const grid =
-        document.getElementById("shopGrid");
-
-    grid.innerHTML = "";
-
-    const filteredItems =
-        shopItems.filter(item => {
-
-            if (currentCategory === "Default") {
-                return item.type === "Solid";
-            }
-
-            return item.type === "Gradient";
-        });
-
-    filteredItems.forEach(item => {
-
-        const card =
-            document.createElement("div");
-
-        card.className = "background-card";
-
-        if (checkIsEquipped(item)) {
-            card.classList.add("selected");
-        }
-
-        const preview =
-            document.createElement("div");
-
-        preview.className =
-            "background-preview";
-
-        /* SOLID */
-
-        if (item.type === "Solid") {
-
-            preview.style.background =
-                item.color;
-
-        }
-
-        /* GRADIENT */
-
-        else {
-
-            preview.style.background =
-                `linear-gradient(
-                    135deg,
-                    ${item.color},
-                    ${item.middle},
-                    ${item.end}
-                )`;
-
-        }
-
-        const name =
-            document.createElement("div");
-
-        name.className =
-            "background-name";
-
-        name.textContent =
-            item.name;
-
-        preview.appendChild(name);
-
-        card.appendChild(preview);
-
-        card.onclick = () => {
-
-            equipBackground(item);
-
-        };
-
-        grid.appendChild(card);
-
-    });
-}
-
-
-/* =========================================================
-   CHECK EQUIPPED
-   ========================================================= */
+/* =====================================
+   EQUIPPED CHECK
+===================================== */
 
 function checkIsEquipped(item) {
 
-    if (!equippedConfig) {
+    if (
+        item.type !==
+        equippedConfig.type
+    ) {
         return false;
     }
 
-    if (item.type !== equippedConfig.type) {
+    if (
+        item.color !==
+        equippedConfig.color
+    ) {
         return false;
     }
 
-    if (item.color !== equippedConfig.color) {
-        return false;
-    }
-
-    if (item.type === "Gradient") {
+    if (
+        item.type === "Gradient"
+    ) {
 
         return (
-            item.middle === equippedConfig.middle &&
-            item.end === equippedConfig.end
+            item.middle ===
+            equippedConfig.middleColor
+            &&
+            item.end ===
+            equippedConfig.endColor
         );
-
     }
 
     return true;
 }
 
 
-/* =========================================================
-   EQUIP BACKGROUND
-   ========================================================= */
+/* =====================================
+   DISPLAY
+===================================== */
+
+function updateDisplay() {
+
+    const container =
+        document.getElementById(
+            "shop-container"
+        );
+
+    container.innerHTML = "";
+
+
+    const filteredItems =
+        shopItems.filter(item => {
+
+            if (
+                currentCategory ===
+                "Default"
+            ) {
+
+                return item.type ===
+                    "Solid";
+            }
+
+            return item.type ===
+                "Gradient";
+        });
+
+
+    filteredItems.forEach(item => {
+
+        const card =
+            document.createElement(
+                "div"
+            );
+
+
+        const isEquipped =
+            checkIsEquipped(item);
+
+
+        card.className =
+            "card" +
+            (
+                isEquipped
+                    ? " equipped"
+                    : ""
+            );
+
+
+        const bgStyle =
+            getCssBackground(item);
+
+
+        card.innerHTML = `
+
+            <div
+                class="preview"
+                style="
+                    background:
+                    ${bgStyle};
+                "
+            ></div>
+
+            <div class="item-name">
+                ${item.name}
+            </div>
+
+        `;
+
+
+        card.onclick = function() {
+
+            equipBackground(item);
+
+        };
+
+
+        container.appendChild(card);
+
+    });
+}
+
+
+/* =====================================
+   EQUIP
+===================================== */
 
 function equipBackground(item) {
 
     equippedConfig = {
+
         type: item.type,
+
         color: item.color,
-        middle: item.middle || "",
-        end: item.end || ""
+
+        middleColor:
+            item.middle || "",
+
+        endColor:
+            item.end || ""
+
     };
 
-    applyBackground();
 
-    renderShop();
+    applyEquippedStyle(
+        equippedConfig
+    );
 
-    sendEquipRequest(item);
+
+    updateDisplay();
+
+
+    sendEquipRequest(item)
+        .catch(error => {
+
+            console.error(
+                "Equip sync error:",
+                error
+            );
+
+        });
 }
 
 
-/* =========================================================
-   APPLY BACKGROUND
-   ========================================================= */
+/* =====================================
+   APPLY
+===================================== */
 
-function applyBackground() {
+function applyEquippedStyle(config) {
 
-    if (equippedConfig.type === "Gradient") {
+    let bgStyle;
 
-        document.body.style.background =
-            `linear-gradient(
+
+    if (
+        config.type ===
+        "Gradient"
+    ) {
+
+        bgStyle = `
+            linear-gradient(
                 135deg,
-                ${equippedConfig.color},
-                ${equippedConfig.middle},
-                ${equippedConfig.end}
-            )`;
+                ${config.color},
+                ${config.middleColor},
+                ${config.endColor}
+            )
+        `;
 
     } else {
 
-        document.body.style.background =
-            equippedConfig.color;
-
+        bgStyle =
+            config.color;
     }
+
+
+    document.body.style.background =
+        bgStyle;
+
+
+    localStorage.setItem(
+        "equipped_bg",
+        bgStyle
+    );
 }
 
 
-/* =========================================================
-   SEND TO GOOGLE SHEETS
-   ========================================================= */
+/* =====================================
+   GOOGLE SHEETS
+===================================== */
 
 function sendEquipRequest(item) {
 
-    const data = {
-
-        action: "equip",
-
-        type: item.type,
-
-        color: item.color,
-
-        middle: item.middle || "",
-
-        end: item.end || ""
-
-    };
-
-    fetch(API_URL, {
+    return fetch(API_URL, {
 
         method: "POST",
 
-        mode: "no-cors",
+        redirect: "follow",
 
         headers: {
-            "Content-Type": "text/plain;charset=utf-8"
+            "Content-Type":
+                "text/plain;charset=utf-8"
         },
 
-        body: JSON.stringify(data)
+        body: JSON.stringify({
 
-    }).catch(error => {
+            action: "equip",
 
-        console.log(
-            "Background save error:",
-            error
-        );
+            type: item.type,
+
+            color: item.color,
+
+            middle:
+                item.middle || "",
+
+            end:
+                item.end || ""
+
+        })
 
     });
-
 }
 
 
-/* =========================================================
-   LOAD GOOGLE SHEET DATA
-   ========================================================= */
+/* =====================================
+   LOAD SAVED BACKGROUND
+===================================== */
 
 async function loadSheetData() {
 
@@ -740,58 +932,39 @@ async function loadSheetData() {
         const data =
             await response.json();
 
+
         if (
-            data &&
+            data.success &&
             data.equipped
         ) {
 
-            equippedConfig = {
+            equippedConfig =
+                data.equipped;
 
-                type:
-                    data.equipped.type ||
-                    "Solid",
 
-                color:
-                    data.equipped.color ||
-                    "#0d0d11",
-
-                middle:
-                    data.equipped.middle ||
-                    "",
-
-                end:
-                    data.equipped.end ||
-                    ""
-
-            };
-
-            applyBackground();
-
-            renderShop();
-
+            applyEquippedStyle(
+                equippedConfig
+            );
         }
+
+
+        updateDisplay();
 
     } catch (error) {
 
-        console.log(
-            "Could not load background:",
+        console.error(
+            "Failed to load background:",
             error
         );
 
-        /* Default background */
-
-        applyBackground();
-
+        updateDisplay();
     }
-
 }
 
 
-/* =========================================================
+/* =====================================
    START
-   ========================================================= */
-
-renderShop();
+===================================== */
 
 loadSheetData();
 
